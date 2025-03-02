@@ -31,10 +31,10 @@ SECRET_KEY = 'django-insecure-y!^2g_@i9&qau$th=^)4h&pnk&=3ffw4f6v9oxc#!k(gphxlgx
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",   # Para acceder desde localhost
-    "localhost",    # Para acceso local
-    "django_project1",  # Nombre del contenedor para django_project1
-    "django_project2",  # Nombre del contenedor para django_project2]
+    "127.0.0.1",   # Para el localhost
+    "localhost",    # local
+    "django_project1",  # para que se pueda con contenedor django_project1
+    "django_project2",  # para que se pueda con contenedor django_project2]
 ]
 
 

@@ -11,7 +11,7 @@ services:
       - "8002:8000"
     environment:
       - DEBUG=True
-      - DATABASE_URL=postgres://postgres:password@db:5432/django_db  # Conexión a PostgreSQL
+      - DATABASE_URL=postgres://postgres:password@db:5432/django_db  # para la conexion a PostgreSQL
     depends_on:
       - db
 
