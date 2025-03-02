@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  django_project1:
+    container_name: django_project1
+    build: .
+    ports:
+      - "8000:8000"
+    command: gunicorn django_evaluacion.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/django_db  # Conexión a PostgreSQL
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  django_project2:
+    container_name: django_project2
+    build: .
+    ports:
+      - "8001:8001"
+    command: gunicorn django_evaluacion.wsgi:application --bind 0.0.0.0:8001
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/django_db  # Conexión a PostgreSQL
+    depends_on:
+      - db
+    networks:
+      - my_network
+
+  envoy:
+    image: envoyproxy/envoy:v1.23-latest
+    container_name: envoy
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml:ro
+    ports:
+      - "10000:10000" # HTTP listener port
+      - "9901:9901" # Admin interface port
+    depends_on:
+      - django_project1
+      - django_project2
+    networks:
+      - my_network
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: django_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from mongoengine import connect
 from datetime import timedelta
+from urllib.parse import urlparse
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +30,12 @@ SECRET_KEY = 'django-insecure-y!^2g_@i9&qau$th=^)4h&pnk&=3ffw4f6v9oxc#!k(gphxlgx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",   # Para acceder desde localhost
+    "localhost",    # Para acceso local
+    "django_project1",  # Nombre del contenedor para django_project1
+    "django_project2",  # Nombre del contenedor para django_project2]
+]
 
 
 # Application definition
@@ -82,12 +89,21 @@ WSGI_APPLICATION = 'django_evaluacion.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_URL = os.getenv('DATABASE_URL')
+url = urlparse(DATABASE_URL)
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+  
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_db',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',  # o la dirección de tu servidor
+        'PORT': '5432',  # Asegúrate de que este valor sea un número entero
     }
 }
+
 
 
 # Password validation
@@ -147,7 +163,3 @@ SIMPLE_JWT = {
     # Additional settings can be configured here
 }
 
-connect(
-    db='djangodata',
-    host='mongodb+srv://rogeliobautista:jKGYvqUYDoJnl5YR@cluster0.kbfza.mongodb.net/djangodata?retryWrites=true&w=majority'
-)
