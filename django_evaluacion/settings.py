@@ -99,11 +99,10 @@ DATABASES = {
         'NAME': 'django_db',
         'USER': 'postgres',
         'PASSWORD': 'password',
-        'HOST': 'localhost',  # o la dirección de tu servidor
-        'PORT': '5432',  # Asegúrate de que este valor sea un número entero
+        'HOST': 'postgres_db',  # esta es la direccion del contendor de docker
+        'PORT': '5432',  # el puerto predeterminado de PostgreSQL
     }
 }
-
 
 
 # Password validation
@@ -158,7 +157,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'users.CustomUser'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),  # Default is 5 minutes
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=50),  # Default is 5 minutes
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Default is 1 day
     # Additional settings can be configured here
 }

@@ -1,17 +1,17 @@
-version: '3.8'
+
 
 services:
   web:
     build: .
     container_name: django_evaluacion
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn django_evaluacion.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8002:8000"
     environment:
       - DEBUG=True
-      - DATABASE_URL=postgres://postgres:password@db:5432/django_db  # para la conexion a PostgreSQL
+      - DATABASE_URL=postgres://postgres:password@postgres_db:5432/django_db  # para la conexion a PostgreSQL
     depends_on:
       - db
 
@@ -27,6 +27,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+
+networks:
+  my_network:
+    external: true
+
 
 volumes:
   postgres_data:

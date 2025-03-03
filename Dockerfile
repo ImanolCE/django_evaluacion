@@ -33,4 +33,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Define the command to run the application using Gunicorn.
-CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000 --workers 3 --timeout 300"]

@@ -20,19 +20,19 @@ static_resources:
                         - match:
                             prefix: "/"
                           route:
-                            cluster: django_cluster  # Aquí debe coincidir con el nombre del cluster
+                            cluster: django_cluster  #  nombre del cluster
                 http_filters:
                   - name: envoy.filters.http.router
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
-    - name: django_cluster  # Aquí debe coincidir con el nombre del cluster en la ruta
+    - name: django_cluster  # nombre del cluster en la ruta
       connect_timeout: 0.25s
       type: strict_dns
       lb_policy: round_robin
       load_assignment:
-        cluster_name: django_cluster  # Asegúrate de que el nombre del cluster coincida
+        cluster_name: django_cluster  
         endpoints:
           - lb_endpoints:
               - endpoint:
