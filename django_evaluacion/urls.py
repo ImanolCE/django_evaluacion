@@ -30,6 +30,9 @@ urlpatterns = [
     path('api/', include('productos.urls')),
     path('api/', include('categorias.urls')),
 
+    path('api/', include('clientes.urls')),  # Ruta para clientes
+    path('api/', include('pedidos.urls')),   # Ruta para pedidos
+
     # token de acceso para cuando un usuario inicia sesion
     path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), 
 

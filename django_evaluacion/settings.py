@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'authentication',
     'productos',
     'categorias',
+    'clientes',
+    'pedidos',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,16 @@ SIMPLE_JWT = {
     # Additional settings can be configured here
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}
