@@ -55,9 +55,14 @@ INSTALLED_APPS = [
     'categorias',
     'clientes',
     'pedidos',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -176,4 +181,10 @@ LOGGING = {
         'handlers': ['console'],
         'level': 'DEBUG',
     },
+    
 }
+
+# CORS CONFIGURATION
+# https://pypi.org/project/django-cors-headers/
+
+CORS_ALLOW_ALL_ORIGINS = True  # Solo en desarrollo (permite peticiones desde cualquier origen)
